@@ -16,7 +16,7 @@ class Stack {
     }
     return this.stack[this.stack.length - 1];
   }
-  isEmpty() {
+  isEmpty():boolean {
     return this.stack.length === 0;
   }
   display() {

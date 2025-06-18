@@ -1,29 +1,32 @@
 "use strict";
 class Queue {
-  constructor() {
-    this.queue = [];
-  }
-  size() {
-    return this.queue.length;
-  }
-  isEmpty() {
-    return this.queue.length === 0;
-  }
-  enqueue(item) {
-    this.queue.push(item);
-  }
-  dequeue() {
-    if (this.isEmpty()) return "queue is empty";
-    return this.queue.shift();
-  }
-  peek() {
-    if (this.isEmpty()) return "queue is empty";
-    return this.queue[0];
-  }
-  display() {
-    if (this.isEmpty()) return "queue is empty";
-    this.queue.forEach((item) => console.log(item));
-  }
+    constructor() {
+        this.queue = [];
+    }
+    size() {
+        return this.queue.length;
+    }
+    isEmpty() {
+        return this.queue.length === 0;
+    }
+    enqueue(item) {
+        this.queue.push(item);
+    }
+    dequeue() {
+        if (this.isEmpty())
+            return "queue is empty";
+        return this.queue.shift();
+    }
+    peek() {
+        if (this.isEmpty())
+            return "queue is empty";
+        return this.queue[0];
+    }
+    display() {
+        if (this.isEmpty())
+            return "queue is empty";
+        this.queue.forEach((item) => console.log(item));
+    }
 }
 const queue = new Queue();
 queue.enqueue(10);
