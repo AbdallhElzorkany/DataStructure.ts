@@ -59,7 +59,6 @@ class DoublyLinkedList {
       let node: DoublyListNode | null = new DoublyListNode(value);
       let prev: DoublyListNode;
       let now: number = 1;
-
       while (temp !== null && now <= position) {
         if (now + 1 === position) {
           prev = temp;
@@ -85,18 +84,29 @@ class DoublyLinkedList {
         if (this.head) this.head.prev = null;
         this.length--;
         return `${value} Deleted`;
-      // } else {
-      //   let temp = this.head;
-      //   let prev = new DoublyListNode(0);
-      //   while (temp !== null) {
-      //     if (temp.val === value) {
-      //       prev.next = temp.next;
-      //       this.length--;
-      //       return `${value} Deleted`;
-      //     }
-      //     prev = temp;
-      //     temp = temp.next;
-      //   }
+      } else if (this.tail?.val === value) {
+        if (this.tail.prev) {
+          this.tail.prev.next = null;
+          this.tail = this.tail.prev;
+          this.length--;
+          return `${value} Deleted`;
+        }
+      } else {
+        let temp = this.head;
+        let prev = new DoublyListNode(0);
+        while (temp !== null) {
+          if (temp.val === value) {
+            prev.next = temp.next;
+            temp = temp.next;
+            if (temp?.val) {
+              temp.prev = prev;
+            }
+            this.length--;
+            return `${value} Deleted`;
+          }
+          prev = temp;
+          temp = temp.next;
+        }
       }
       return "Not Found";
     }
@@ -156,15 +166,59 @@ class DoublyLinkedList {
       }
     }
   }
+  public deletePosition(position: number) {
+    if (this.length === 0) {
+      return `there is nothing to delete.`;
+    } else {
+      if (position === 1 && this.head) {
+        if (this.head.next) {
+          this.head.next.prev = null;
+          this.head = this.head.next;
+        } else {
+          this.head = null;
+          this.tail = this.head;
+        }
+        this.length--;
+        return `Node ${position} Deleted`;
+      } else if (this.length === position && this.tail) {
+        if (this.tail.prev) {
+          this.tail.prev.next = null;
+          this.tail = this.tail.prev;
+          this.length--;
+          return `Node ${position} Deleted`;
+        }
+      } else {
+        let temp = this.head;
+        let prev = new DoublyListNode(0);
+        let now: number = 1;
+        while (temp !== null) {
+          if (now === position) {
+            prev.next = temp.next;
+            temp = temp.next;
+            if (temp?.val) {
+              temp.prev = prev;
+            }
+            this.length--;
+            return `${position} Deleted`;
+          }
+          prev = temp;
+          temp = temp.next;
+          now++;
+        }
+      }
+    }
+    return `Not Found`;
+  }
 }
 let dll = new DoublyLinkedList();
 dll.insertLast(10);
 dll.insertLast(20);
-// dll.insertLast(30);
-// dll.insertLast(40);
+dll.insertLast(30);
+dll.insertLast(40);
 // dll.insertLast(50);
 // dll.insertPosition(1, 1);
-console.log(dll.delete(10));
+console.log(dll.deletePosition(5));
+console.log(dll.length);
 dll.print();
 console.log("===============");
 dll.printReverse();
